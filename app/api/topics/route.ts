@@ -1,26 +1,31 @@
-import { connectToMongoDB } from "@/libs/db";
-import topic from "@/models/topic";
+import db from "@/libs/db";
 import { NextRequest, NextResponse } from "next/server";
 
 
 export async function POST(req:NextRequest){
-    await connectToMongoDB()
     const data:Promise<any> = await req.json()
     const {title, description} = data
     
-    await topic.create({title, description})
+    await db.topic.create({
+        data: {
+            title,
+            description
+        }
+    })
     return NextResponse.json({message: 'Topic Created!'}, {status: 201})
 }
 
 export async function GET(){
-    await connectToMongoDB()
-    const topics = await topic.find()
+    const topics = await db.topic.findMany()
     return NextResponse.json({topics}, {status: 200})
 }
 
 export async function DELETE(req:NextRequest){
-    await connectToMongoDB()
     const id = req.nextUrl.searchParams.get('id')
-    await topic.findByIdAndDelete(id)
+    await db.topic.delete({
+        where: {
+            id: id
+        }
+    }) 
     return NextResponse.json({message: 'Topic Deleted!'}, {status: 200})
 }

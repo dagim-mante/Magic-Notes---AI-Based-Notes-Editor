@@ -6,14 +6,14 @@ interface RemoveBtnProps{
   _id: string
 }
 
-const RemoveBtn:React.FC<RemoveBtnProps> = ({_id}) => {
+const RemoveBtn:React.FC<RemoveBtnProps> = ({id}) => {
 
   const router = useRouter()
 
   const removeTopic = async () => {
     const confirmed = confirm('Are you sure?')
     if(confirmed){
-      await fetch(`http://localhost:3000/api/topics?id=${_id}`, {
+      await fetch(`http://localhost:3000/api/topics?id=${id}`, {
         method: 'DELETE'
       })
       router.refresh()
