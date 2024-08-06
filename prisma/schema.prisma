@@ -11,6 +11,8 @@ model Topic {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   title           String 
   description     String
+  userId          String    @db.ObjectId
+  user            User      @relation(fields: [userId], references: [id])
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
@@ -20,4 +22,5 @@ model User {
   username        String    @unique
   email           String    @unique
   password        String
+  topics          Topic[]
 }

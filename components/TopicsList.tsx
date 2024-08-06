@@ -1,12 +1,20 @@
 import Link from "next/link"
 import { HiPencilAlt } from "react-icons/hi"
 import RemoveBtn from "./RemoveBtn"
+import { getServerSession } from "next-auth"
+import db from "@/libs/db"
 
-const getTopics = async () => {
+const getTopics = async (userId) => {
     try{
-        const res = await fetch('http://localhost:3000/api/topics', {
+        const res = await fetch('http://localhost:3000/api/topics/all', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userId: userId}),
             cache: 'no-cache'
         })
+        
         if(!res.ok){
             throw new Error('failed to fetch')
         }
@@ -17,8 +25,14 @@ const getTopics = async () => {
 }
 
 export default async function TopicsList(){
-    const {topics} = await getTopics()
-    console.log(topics)
+    const session = await getServerSession(db)
+    const user = await db.user.findUnique({
+        where :{
+            email: session?.user.email
+        }
+    })
+    let body = await getTopics(user?.id)
+    const {topics} = body
 
     return (
         <>

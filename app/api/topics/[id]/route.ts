@@ -1,4 +1,5 @@
 import db from '@/libs/db'
+import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse} from "next/server"
 
 
@@ -18,14 +19,21 @@ export async function PUT(req:NextRequest, {params}){
     return NextResponse.json({"message": "topic updated."}, {status: 200})
 }
 
-export async function GET(req:NextRequest, {params}){
+export async function POST(req:NextRequest, {params}){
     const {id} = params
+    const {userId} = await req.json()
+    
     const selectedTopic = await db.topic.findUnique({
         where: {
-            id: id
+            userId,
+            id
         }
     })
-    console.log(selectedTopic)
-    return NextResponse.json({topic: selectedTopic}, {status: 200})
+    console.log('topic', selectedTopic)
+    if(selectedTopic){
+        return NextResponse.json({topic: selectedTopic}, {status: 200})
+    }else{
+        return NextResponse.json({topic: null}, {status: 200})
+    }
 } 
 

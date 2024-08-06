@@ -43,5 +43,26 @@ export const authOptions = {
                 }
             }
         })
-    ]
+    ],
+    callbacks: {
+        async jwt({token, user}){
+            if(user){
+                return {
+                    ...token,
+                    username: user.username
+                }
+            }
+            return token
+        },
+        async session({session, token}){
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    username: token.username
+                }
+
+            }
+        }
+    }
 }

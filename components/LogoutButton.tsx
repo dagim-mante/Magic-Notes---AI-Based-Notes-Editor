@@ -2,7 +2,7 @@
 
 import { signOut } from "next-auth/react"
 
-export default async function LogoutButton(){
+export default function LogoutButton(){
     return (
         <button onClick={() => signOut({
             redirect: true,
