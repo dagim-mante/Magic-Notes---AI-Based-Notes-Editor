@@ -1,4 +1,5 @@
 'use client'
+import Tiptap from '@/components/editor/Tiptap'
 import { useRouter } from 'next/navigation'
 import {useState} from 'react'
 
@@ -32,6 +33,7 @@ const Add = () => {
   return (
     <>
         <h2 className="text-xl">Add Topic</h2>
+        <Tiptap />
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <input 
                 value={title}

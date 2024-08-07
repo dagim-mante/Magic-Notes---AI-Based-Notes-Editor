@@ -1,6 +1,7 @@
 'use client'
 import {useRouter} from 'next/navigation'
 import { useState } from 'react'
+import Tiptap from './editor/Tiptap'
 
 interface EditTopicFormProps{
     id: string,
