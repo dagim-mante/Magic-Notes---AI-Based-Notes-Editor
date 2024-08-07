@@ -7,7 +7,7 @@ export async function PUT(req:NextRequest, {params}){
     const {id} = params
     const {newTitle: title, newDescription: description} = await req.json()
 
-    await db.topic.update({
+    await db.note.update({
         where: {
             id: id
         },
@@ -23,7 +23,7 @@ export async function POST(req:NextRequest, {params}){
     const {id} = params
     const {userId} = await req.json()
     
-    const selectedTopic = await db.topic.findUnique({
+    const selectedTopic = await db.note.findUnique({
         where: {
             userId,
             id

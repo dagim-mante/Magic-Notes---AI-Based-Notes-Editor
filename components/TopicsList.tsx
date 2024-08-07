@@ -32,11 +32,11 @@ export default async function TopicsList(){
         }
     })
     let body = await getTopics(user?.id)
-    const {topics} = body
+    const {notes} = body
 
     return (
         <>
-            {topics.length ? topics.map((t, i) => (
+            {notes.length ? notes.map((t, i) => (
                 <div key={i} className='px-4 py-8 flex justify-between gap-4 border border-slate-500 my-3 items-start'>
                     <div>
                         <h2 className="text-2xl font-bold">{t.title}</h2>

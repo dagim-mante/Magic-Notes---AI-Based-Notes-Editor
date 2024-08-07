@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth"
 
 export async function POST(req:NextRequest){
     const data:Promise<any> = await req.json()
-    const {title, description} = data
+    const {title, content} = data
     const session = await getServerSession(db)
     const user = await db.user.findUnique({
         where:{
@@ -13,11 +13,11 @@ export async function POST(req:NextRequest){
         }
     })
     
-    await db.topic.create({
+    await db.note.create({
         data: {
             userId: user?.id,
             title,
-            description
+            content
         }
     })
     return NextResponse.json({message: 'Topic Created!'}, {status: 201})
@@ -26,7 +26,7 @@ export async function POST(req:NextRequest){
 
 export async function DELETE(req:NextRequest){
     const id = req.nextUrl.searchParams.get('id')
-    await db.topic.delete({
+    await db.note.delete({
         where: {
             id: id
         }

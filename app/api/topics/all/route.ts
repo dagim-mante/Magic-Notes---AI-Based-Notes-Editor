@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest){
     const {userId} = await req.json() 
-    let topics = await db.topic.findMany({
+    let notes = await db.note.findMany({
         where: {
             userId
         }
     })
-    return NextResponse.json({topics}, {status: 200})
+    return NextResponse.json({notes}, {status: 200})
 }
