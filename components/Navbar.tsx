@@ -2,6 +2,8 @@ import db from '@/libs/db'
 import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import LogoutButton from '@/components/LogoutButton'
+import NavBarNewNote from './NavBarNewNote'
+
 
 export default async function Navbar(){
     const session = await getServerSession(db)
@@ -12,7 +14,7 @@ export default async function Navbar(){
             <div className='flex items-center'>
                 {session ? (
                     <>
-                        <Link href='/add' className='bg-white p-2'>Add</Link>
+                        <NavBarNewNote />
                         <LogoutButton />
                     </>
                 ) : (
