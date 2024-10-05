@@ -7,9 +7,9 @@ export default async function LoginPage(){
         <div>
             {
                 session ? (
-                    <>
+                    <div className="overflow-hidden">
                         {JSON.stringify(session)}
-                    </>
+                    </div>
                 ) : (
                     <LoginComponent />
                 )
