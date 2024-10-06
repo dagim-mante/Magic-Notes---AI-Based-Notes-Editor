@@ -63,4 +63,54 @@
   body {
     @apply bg-background text-foreground;
   }
+  ul, ol {
+    list-style: revert;
+  }
 }
+
+.tiptap:first-child {
+  margin-top: 0;
+}
+.tiptap ul,ol {
+  padding: 0 1rem;
+  margin: 1.25rem 1rem 1.25rem 0.4rem;
+}
+
+.tiptap ul li p{
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.tiptap ol li p{
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.tiptap h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+  line-height: 1.1;
+  text-wrap: pretty;
+}
+
+.tiptap h1 {
+    margin-top: 2.5rem;
+    margin-bottom: .5rem;
+}
+
+.tiptap h1 { 
+  font-size: 1.4rem; 
+}
+
+  .tiptap h2 {
+    margin-top: 1rem;
+    margin-bottom: .25rem; 
+    font-size: 1.2rem; 
+  }
+
+  .tiptap h3 { 
+    font-size: 1.1rem; 
+  }
