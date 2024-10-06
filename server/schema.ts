@@ -1,9 +1,11 @@
+import { relations } from "drizzle-orm"
 import {
     pgTable,
     text,
     primaryKey,
     integer,
     timestamp,
+    serial,
 } from "drizzle-orm/pg-core"
 import type { AdapterAccount } from "next-auth/adapters"
 
@@ -42,3 +44,27 @@ export const accounts = pgTable(
         }),
     })
 )
+
+export const notes = pgTable(
+    "note", {
+        id: serial("id").primaryKey(),
+        owners: text("owners")
+                .notNull()
+                .references(() => users.id, {onDelete: 'cascade'}),
+        title: text("title").notNull(),
+        content: text("content"),
+        created: timestamp("created").defaultNow(),
+        updated: timestamp("updated")
+                    .defaultNow()
+                    .$onUpdate(() => new Date())
+    }
+)
+
+
+export const userRelations = relations(users, ({many}) => ({
+    notes: many(notes)
+}))
+
+export const noteRelations = relations(notes, ({many}) => ({
+    users: many(users)
+}))

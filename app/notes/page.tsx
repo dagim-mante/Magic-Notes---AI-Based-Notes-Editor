@@ -1,7 +1,6 @@
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -12,15 +11,61 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
   
-import { Ellipsis, SquarePen, Tag, Trash2 } from "lucide-react"
+  
+import { Ellipsis, Plus, SquarePen, Tag, Trash2 } from "lucide-react"
 import Link from "next/link"
+import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
   
 
 export default function NotesPage(){
     return (
         <div>
-            <h2>Your Notes</h2>
+            <div className="flex gap-2 justify-between items-center mb-2">
+                <h2 className="text-2xl">Your Notes</h2>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <button className="text-sm flex items-center px-2 py-1 rounded-sm hover:bg-primary/75 bg-primary text-white">
+                            <Plus className="w-4 h-4 mr-1"/>
+                            <span>Add Note</span>
+                        </button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                            <DialogTitle>New Note</DialogTitle>
+                            <DialogDescription>
+                                Create a brand new note.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="flex items-center gap-2 w-full">
+                            <Label htmlFor="name" className="mr-2">
+                                Title:
+                            </Label>
+                            <Input
+                                id="title"
+                                placeholder="Shopping List"
+                                className="w-full"
+                            />
+                        </div>
+
+                        <DialogFooter>
+                            <Button type="submit">Create</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            </div>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <div>
                     <Card>
