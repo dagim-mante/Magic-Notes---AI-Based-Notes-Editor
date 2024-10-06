@@ -1,5 +1,5 @@
 {
-  "id": "269ce5e1-266c-4d4d-a7a2-718136157e2f",
+  "id": "d7007e95-bb29-49e6-82eb-e80e36c3eca1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -102,6 +102,68 @@
       },
       "uniqueConstraints": {}
     },
+    "public.note": {
+      "name": "note",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owners": {
+          "name": "owners",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created": {
+          "name": "created",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated": {
+          "name": "updated",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "note_owners_user_id_fk": {
+          "name": "note_owners_user_id_fk",
+          "tableFrom": "note",
+          "tableTo": "user",
+          "columnsFrom": [
+            "owners"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.user": {
       "name": "user",
       "schema": "",
@@ -130,16 +192,42 @@
           "primaryKey": false,
           "notNull": false
         },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
         "image": {
           "name": "image",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "default": "'https://utfs.io/f/ez2eGPgh5yPHRqyddGKJgsdkimrNyB7E92IOtTCf4PhDZb3G'"
+        },
+        "notes": {
+          "name": "notes",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "user_notes_note_id_fk": {
+          "name": "user_notes_note_id_fk",
+          "tableFrom": "user",
+          "tableTo": "note",
+          "columnsFrom": [
+            "notes"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }

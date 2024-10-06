@@ -1,6 +1,6 @@
 {
-  "id": "0972f4f9-2d7d-4b0a-8e7b-3873f49c2b8f",
-  "prevId": "269ce5e1-266c-4d4d-a7a2-718136157e2f",
+  "id": "1add9873-af6b-4838-a4db-2d42b241f7d6",
+  "prevId": "d7007e95-bb29-49e6-82eb-e80e36c3eca1",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -102,6 +102,48 @@
       },
       "uniqueConstraints": {}
     },
+    "public.note": {
+      "name": "note",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created": {
+          "name": "created",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated": {
+          "name": "updated",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.user": {
       "name": "user",
       "schema": "",
@@ -147,6 +189,63 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.users_to_notes": {
+      "name": "users_to_notes",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "note_id": {
+          "name": "note_id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "users_to_notes_user_id_user_id_fk": {
+          "name": "users_to_notes_user_id_user_id_fk",
+          "tableFrom": "users_to_notes",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_to_notes_note_id_note_id_fk": {
+          "name": "users_to_notes_note_id_note_id_fk",
+          "tableFrom": "users_to_notes",
+          "tableTo": "note",
+          "columnsFrom": [
+            "note_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "users_to_notes_user_id_note_id_pk": {
+          "name": "users_to_notes_user_id_note_id_pk",
+          "columns": [
+            "user_id",
+            "note_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     }
   },

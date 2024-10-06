@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/navigation/nav";
+
 import { auth } from "@/server/auth";
+
+import NavBar from "@/components/navigation/nav";
+import { Toaster } from 'sonner'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +26,7 @@ export default async function RootLayout({
         <div className="container">
           <NavBar session={session}/>
           {children}
+          <Toaster position="top-right"/>
         </div>
       </body>
     </html>

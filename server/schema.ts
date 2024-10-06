@@ -48,9 +48,6 @@ export const accounts = pgTable(
 export const notes = pgTable(
     "note", {
         id: serial("id").primaryKey(),
-        owners: text("owners")
-                .notNull()
-                .references(() => users.id, {onDelete: 'cascade'}),
         title: text("title").notNull(),
         content: text("content"),
         created: timestamp("created").defaultNow(),
@@ -60,11 +57,37 @@ export const notes = pgTable(
     }
 )
 
+export const usersToNotes = pgTable(
+    'users_to_notes',
+    {
+      userId: text('user_id')
+        .notNull()
+        .references(() => users.id),
+      noteId: serial('note_id')
+        .notNull()
+        .references(() => notes.id),
+    },
+    (t) => ({
+      pk: primaryKey({ columns: [t.userId, t.noteId] }),
+    }),
+  );
+
 
 export const userRelations = relations(users, ({many}) => ({
-    notes: many(notes)
+    usersToNotes: many(usersToNotes)
 }))
 
 export const noteRelations = relations(notes, ({many}) => ({
-    users: many(users)
+    usersToNotes: many(usersToNotes)
 }))
+
+export const usersToNotesRelations = relations(usersToNotes, ({ one }) => ({
+    note: one(notes, {
+      fields: [usersToNotes.noteId],
+      references: [notes.id],
+    }),
+    user: one(users, {
+      fields: [usersToNotes.userId],
+      references: [users.id],
+    }),
+  }));
