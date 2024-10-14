@@ -68,4 +68,4 @@ export const PUT = async (req: NextRequest) => {
         console.log(error)
         return NextResponse.json({note: null, error: 'Something went wrong.'}, {status: 500})
     }
-} 
+}
