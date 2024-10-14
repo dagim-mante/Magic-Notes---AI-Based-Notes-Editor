@@ -5,6 +5,8 @@ import { auth } from "@/server/auth";
 import { usersToNotes } from "@/server/schema";
 import { eq } from "drizzle-orm";
 
+export const revalidate = 0
+
 export default async function NotesPage(){
     const session = await auth()
     if(!session){

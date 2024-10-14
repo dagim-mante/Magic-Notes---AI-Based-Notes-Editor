@@ -4,14 +4,18 @@ import { NoteWithUser } from '@/lib/infer-type'
 import { cn } from '@/lib/utils'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import axios from 'axios'
 import { BadgeCheck, Bold, Heading1, Heading2, Heading3, Italic, List, ListOrdered, Loader, Save } from 'lucide-react'
+import { useState } from 'react'
 
 const Tiptap = ({
     myNote
 }: {
     myNote: NoteWithUser
 }) => {
+  const [saving, setSaving] = useState(false)
   const editor = useEditor({
+    immediatelyRender: false,
     editorProps: {
       attributes: {
         class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
@@ -29,11 +33,43 @@ const Tiptap = ({
         },
       })
     ],
-    content: myNote.note.content ? myNote.note.content : ''
+    content: myNote.note.content ? myNote.note.content : '',
+    onUpdate({ editor }){
+      console.log("update")
+      if(saving){
+        return
+      }else{
+        setSaving(true)
+        setTimeout(async () => {
+          console.log("Save to db")
+          const res = await axios.put('/api/notes', {
+            id: myNote.noteId,
+            content: editor.getHTML() 
+          })
+          console.log(res)
+          setSaving(false)
+        }, 10000)
+      }
+    }
   })
 
   if(!editor){
     return null
+  }
+
+  const manualSave = async () => {
+    if(saving){
+      return
+    }else{
+      setSaving(true)
+      console.log("Save to db")
+      const res = await axios.put('/api/notes', {
+        id: myNote.noteId,
+        content: editor.getHTML() 
+      })
+      console.log(res)
+      setSaving(false)
+    }
   }
 
   return (
@@ -44,13 +80,22 @@ const Tiptap = ({
         >
           <div className="flex flex-wrap gap-[4px]">
             <p className='flex items-center gap-[2px] mr-1'>
-              {/* <Loader className="w-4 h-4 animate-spin"/>
-              <span className="text-xs">Saving</span> */}
-              <BadgeCheck className="w-4 h-4"/>
-              <span className="text-xs">Saved</span>
+              {saving ? (
+                <>
+                  <Loader className="w-4 h-4 animate-spin"/>
+                  <span className="text-xs">Saving</span>
+                </>
+              ) : (
+                <>
+                  <BadgeCheck className="w-4 h-4"/>
+                  <span className="text-xs">Saved</span>
+                </>
+              )}
             </p>
             <button
               className="p-1 rounded-sm bg-secondary hover:bg-primary hover:text-white"
+                disabled={saving}
+                onClick={manualSave}
             >
               <Save className="w-4 h-4"/>
             </button>

@@ -38,7 +38,7 @@ export default function NotesGrid({
                             <CardContent>
                                 <div 
                                     dangerouslySetInnerHTML={{ __html: myNote.note.content ? myNote.note.content : ''}}
-                                    className="text-xs font-light"
+                                    className="text-xs font-light max-h-16 overflow-hidden"
                                 />
                             </CardContent>
                         </Link>

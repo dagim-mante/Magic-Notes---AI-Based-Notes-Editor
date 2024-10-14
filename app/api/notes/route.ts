@@ -1,6 +1,7 @@
 import { db } from "@/server";
 import { auth } from "@/server/auth";
 import { notes, usersToNotes } from "@/server/schema";
+import { and, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 // Create a new note
@@ -35,3 +36,36 @@ export const POST = async (req: NextRequest) => {
         return NextResponse.json({error: 'Something went wrong.'}, {status: 500})
     }
 }
+
+export const PUT = async (req: NextRequest) => {
+    try{
+        const session = await auth()
+        if(!session){
+            return NextResponse.json({error: 'You must be logged in to complete this action.'}, {status: 400})
+        }
+    
+        const {id, content} = await req.json()
+        if(!id || !content){
+            return NextResponse.json({error: 'Incomplete form.'}, {status: 400})
+        }
+    
+        const myNote = await db.query.usersToNotes.findFirst({
+            where: and(
+                eq(usersToNotes.userId, session.user?.id!),
+                eq(usersToNotes.noteId, id)
+            ),
+        })
+        if(!myNote){
+            return NextResponse.json({error: 'Note not found.'}, {status: 400})
+        }
+    
+        const updatedNote = await db.update(notes).set({
+            content,
+        }).where(eq(notes.id, id)).returning()
+    
+        return NextResponse.json({success: updatedNote}, {status: 200})
+    }catch(error){
+        console.log(error)
+        return NextResponse.json({note: null, error: 'Something went wrong.'}, {status: 500})
+    }
+} 
