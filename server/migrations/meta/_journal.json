@@ -15,6 +15,27 @@
       "when": 1728224093152,
       "tag": "0001_hard_kat_farrell",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1728936775445,
+      "tag": "0002_volatile_phil_sheldon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1729069895113,
+      "tag": "0003_modern_mockingbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1729070060423,
+      "tag": "0004_burly_carmella_unuscione",
+      "breakpoints": true
     }
   ]
 }

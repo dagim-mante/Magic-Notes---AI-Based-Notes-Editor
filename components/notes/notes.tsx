@@ -9,7 +9,7 @@ export default function Notes({
 }){
     return (
         <>
-            <NotesHeader />
+            <NotesHeader myNotes={myNotes} />
             <NotesGrid myNotes={myNotes} />
         </>
     )

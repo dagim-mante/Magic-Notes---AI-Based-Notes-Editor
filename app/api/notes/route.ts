@@ -63,7 +63,7 @@ export const PUT = async (req: NextRequest) => {
             content,
         }).where(eq(notes.id, id)).returning()
     
-        return NextResponse.json({success: updatedNote}, {status: 200})
+        return NextResponse.json({success: updatedNote[0]}, {status: 200})
     }catch(error){
         console.log(error)
         return NextResponse.json({note: null, error: 'Something went wrong.'}, {status: 500})

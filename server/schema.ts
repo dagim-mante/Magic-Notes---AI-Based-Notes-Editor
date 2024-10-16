@@ -50,6 +50,8 @@ export const notes = pgTable(
         id: serial("id").primaryKey(),
         title: text("title").notNull(),
         content: text("content"),
+        labelText: text("label_text"),
+        labelColor: text("label_color"),
         created: timestamp("created").defaultNow(),
         updated: timestamp("updated")
                     .defaultNow()
@@ -80,6 +82,7 @@ export const userRelations = relations(users, ({many}) => ({
 export const noteRelations = relations(notes, ({many}) => ({
     usersToNotes: many(usersToNotes)
 }))
+
 
 export const usersToNotesRelations = relations(usersToNotes, ({ one }) => ({
     note: one(notes, {
