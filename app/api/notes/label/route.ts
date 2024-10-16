@@ -16,6 +16,8 @@ export const POST = async (req: NextRequest) => {
             return NextResponse.json({error: 'Incomplete Form.'}, {status: 400})
         }
 
+        console.log("labelNotes", labelNotes)
+
         labelNotes.forEach(async (noteId:number) => {
             const myNote = await db.query.usersToNotes.findFirst({
                 where: and(
@@ -26,7 +28,7 @@ export const POST = async (req: NextRequest) => {
             if(!myNote){
                 return NextResponse.json({error: 'Note Doesn\'t exist.'}, {status: 400}) 
             }
-
+            console.log("myNote", myNote)
             await db.update(notes).set({
                labelText: label,
                labelColor
