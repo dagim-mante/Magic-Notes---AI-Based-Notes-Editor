@@ -32,10 +32,14 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { NoteWithUser } from "@/lib/infer-type"
 
+export const revalidate = 0
+
 export default function NotesHeader({
-    myNotes
+    myNotes,
+    setNotesState
 }: {
-    myNotes: NoteWithUser[]
+    myNotes: NoteWithUser[],
+    setNotesState: any
 }){
     const [title, setTitle] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -74,8 +78,8 @@ export default function NotesHeader({
         }
     ))
     myLabels = removeDuplicateLabels(myLabels)
+    myLabels = myLabels.filter(myLabel => myLabel.label !== null)
 
-    console.log(myLabels)
 
     // send request to create new note (/api/notes) POST
     const createNote = async () => {
@@ -130,7 +134,6 @@ export default function NotesHeader({
                 setIsLoading(false)
                 setLabelOpen(false)
                 toast.success('Label created 🎉')
-                router.refresh()
             }
         }catch(error: any){
             toast.dismiss()
@@ -140,6 +143,8 @@ export default function NotesHeader({
             }else{
                 toast.error(`Something went wrong. 😔`)
             }
+        }finally{
+            router.refresh()
         }
     }
 
@@ -289,6 +294,9 @@ export default function NotesHeader({
                             key={label.label} 
                             variant="outline"
                             className={`cursor-pointer bg-${label.labelColor}-500 text-white`}
+                            onClick={() => {
+                                setNotesState(myNotes.filter(note => note.note.labelText === label.label))
+                            }}
                         >
                             {label.label}
                         </Badge>

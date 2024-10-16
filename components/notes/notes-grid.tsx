@@ -34,6 +34,8 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
+export const revalidate = 0
+
 export default function NotesGrid({
     myNotes
 } : {
@@ -88,10 +90,12 @@ export default function NotesGrid({
                         </Link>
                         <CardFooter>
                             <div className="w-full flex flex-col items-start">
-                                <div aria-label="label" className="mb-3 border border-gray-800 rounded-md px-3 py-1 text-gray-800 dark:text-gray-400 dark:border-gray-700 text-xs flex items-center">
-                                    <Tag className="w-4 h-4" />
-                                    <p className="ml-2">To Dos</p>
-                                </div>
+                                {myNote.note.labelText ? (
+                                    <div aria-label="label" className={`bg-${myNote.note.labelColor}-500 mb-3 border rounded-md px-3 py-1 text-white dark:text-gray-400 dark:border-gray-700 text-xs flex items-center`}>
+                                        <Tag className="w-4 h-4" />
+                                        <p className="ml-2 font-bold tracking-wider">{myNote.note.labelText}</p>
+                                    </div>
+                                ) : null}
                                 <div className="flex items-center justify-between text-gray-800 dark:text-gray-100 w-full">
                                     <p className="text-sm">{myNote.note.updated?.toDateString()}</p>
                                     <DropdownMenu>

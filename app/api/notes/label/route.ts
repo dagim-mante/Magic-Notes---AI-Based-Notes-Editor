@@ -29,7 +29,9 @@ export const POST = async (req: NextRequest) => {
             await db.update(notes).set({
                labelText: label,
                labelColor
-            })
+            }).where(
+                eq(notes.id, myNote.noteId)
+            )
         })
         return NextResponse.json({success: 'New label created.'}, {status: 200})
 
