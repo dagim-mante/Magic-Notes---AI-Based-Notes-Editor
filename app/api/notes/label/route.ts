@@ -18,11 +18,11 @@ export const POST = async (req: NextRequest) => {
 
         console.log("labelNotes", labelNotes)
 
-        labelNotes.forEach(async (noteId:number) => {
+        for(let i = 0; i < labelNotes.length; i++){
             const myNote = await db.query.usersToNotes.findFirst({
                 where: and(
                     eq(usersToNotes.userId, session.user?.id!),
-                    eq(usersToNotes.noteId, noteId)
+                    eq(usersToNotes.noteId, labelNotes[i])
                 ),
             })
             if(!myNote){
@@ -35,7 +35,7 @@ export const POST = async (req: NextRequest) => {
             }).where(
                 eq(notes.id, myNote.noteId)
             )
-        })
+        }
         return NextResponse.json({success: 'New label created.'}, {status: 200})
 
     }catch(error){
