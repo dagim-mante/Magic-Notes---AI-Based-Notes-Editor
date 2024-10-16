@@ -26,6 +26,7 @@ export const POST = async (req: NextRequest) => {
             if(!myNote){
                 return NextResponse.json({error: 'Note Doesn\'t exist.'}, {status: 400}) 
             }
+
             await db.update(notes).set({
                labelText: label,
                labelColor

@@ -120,7 +120,6 @@ export default function NotesHeader({
             setLabelError('Please select atleast one note.')
             return
         }
-
         try{
             toast.loading('Creating Label...⏳')
             const {data} = await axios.post('/api/notes/label', {
@@ -128,6 +127,8 @@ export default function NotesHeader({
                 labelColor,
                 labelNotes
             })
+
+            setLabelNotes([])
             
             if(data.success){
                 toast.dismiss()
@@ -254,7 +255,7 @@ export default function NotesHeader({
                                         <div className="flex items-center space-x-2">
                                             <Checkbox 
                                                 onCheckedChange={e => {
-                                                    if(labelNotes.includes(note.id)){
+                                                    if(labelNotes.length > 0 && labelNotes.includes(note.id)){
                                                         setLabelNotes(prev => prev.filter(noteId => noteId !== note.id))
                                                     }else{
                                                         setLabelNotes(prev => ([...prev, note.id]))
