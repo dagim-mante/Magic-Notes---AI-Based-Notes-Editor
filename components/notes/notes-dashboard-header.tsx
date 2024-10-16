@@ -36,10 +36,12 @@ export const revalidate = 0
 
 export default function NotesHeader({
     myNotes,
-    setNotesState
+    allNotes,
+    setFilterNotes
 }: {
     myNotes: NoteWithUser[],
-    setNotesState: any
+    allNotes: NoteWithUser[]
+    setFilterNotes: any
 }){
     const [title, setTitle] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -196,7 +198,7 @@ export default function NotesHeader({
                     </DialogContent>
                 </Dialog>
             </div>
-            <div className="w-full flex gap-1 px-2 py-1">
+            <div className="w-full flex gap-1 px-2 py-1 overflow-x-scroll">
                 <Dialog open={labelOpen} onOpenChange={setLabelOpen}>
                     <DialogTrigger asChild>
                         <button className="p-2 rounded-full">
@@ -290,13 +292,23 @@ export default function NotesHeader({
                     </DialogContent>
                 </Dialog> 
                 <>
+                    <Badge
+
+                        variant="outline"
+                        className={`cursor-pointer bg-slate-700 text-white`}
+                        onClick={() => {
+                            setFilterNotes(allNotes)
+                        }}
+                    >
+                        All
+                    </Badge>
                     {myLabels.map(label => (
                         <Badge
                             key={label.label} 
                             variant="outline"
                             className={`cursor-pointer bg-${label.labelColor}-500 text-white`}
                             onClick={() => {
-                                setNotesState(myNotes.filter(note => note.note.labelText === label.label))
+                                setFilterNotes(myNotes.filter(note => note.note.labelText === label.label))
                             }}
                         >
                             {label.label}

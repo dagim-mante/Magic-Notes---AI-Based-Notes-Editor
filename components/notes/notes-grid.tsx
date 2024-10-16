@@ -33,6 +33,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import {formatDistance} from "date-fns"
 
 export const revalidate = 0
 
@@ -45,6 +46,7 @@ export default function NotesGrid({
     const [removeLabelOpen, setRemoveLabelOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
+
 
     const deleteNote = async (id: number) => {
         try{
@@ -97,7 +99,7 @@ export default function NotesGrid({
     }
     
     return (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="mt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {myNotes.map(myNote => (
                 <div key={myNote.noteId}>
                     <Card>
@@ -125,7 +127,7 @@ export default function NotesGrid({
                                     </div>
                                 ) : null}
                                 <div className="flex items-center justify-between text-gray-800 dark:text-gray-100 w-full">
-                                    <p className="text-sm">{myNote.note.updated?.toDateString()}</p>
+                                    <p className="text-sm">{formatDistance(myNote.note.updated!, new Date())} ago</p>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
                                             <button className="rounded-sm px-2 py-1 bg-secondary-foreground text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="edit note" role="button">

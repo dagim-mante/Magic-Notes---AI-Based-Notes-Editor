@@ -13,14 +13,17 @@ export default function Notes({
     myNotes: NoteWithUser[]
 }){
     const [notesState, setNotesState] = useState(myNotes)
+    const [filterNotes, setFilterNotes] = useState(myNotes)
+
     useEffect(() => {
         setNotesState(myNotes)
+        setFilterNotes(myNotes)
     }, [myNotes])
 
     return (
         <>
-            <NotesHeader myNotes={notesState} setNotesState={setNotesState}/>
-            <NotesGrid myNotes={notesState} />
+            <NotesHeader  myNotes={notesState} allNotes={notesState} setFilterNotes={setFilterNotes}/>
+            <NotesGrid myNotes={filterNotes} />
         </>
     )
 }
