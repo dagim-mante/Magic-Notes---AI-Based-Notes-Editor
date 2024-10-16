@@ -12,11 +12,9 @@ export const POST = async (req: NextRequest) => {
         if(!session){
             return NextResponse.json({error: 'You must be logged in.'}, {status: 400})
         }
-        if(!label || !labelColor || labelNotes.length === 0){
+        if(labelNotes.length === 0){
             return NextResponse.json({error: 'Incomplete Form.'}, {status: 400})
         }
-
-        console.log("labelNotes", labelNotes)
 
         for(let i = 0; i < labelNotes.length; i++){
             const myNote = await db.query.usersToNotes.findFirst({
@@ -28,7 +26,6 @@ export const POST = async (req: NextRequest) => {
             if(!myNote){
                 return NextResponse.json({error: 'Note Doesn\'t exist.'}, {status: 400}) 
             }
-            console.log("myNote", myNote)
             await db.update(notes).set({
                labelText: label,
                labelColor

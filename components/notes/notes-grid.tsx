@@ -25,7 +25,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"  
 
-import { Ellipsis, SquareArrowOutUpRight, Tag, Trash2 } from "lucide-react"
+import { BookmarkX, Ellipsis, SquareArrowOutUpRight, Tag, Trash2 } from "lucide-react"
 import Link from "next/link"
 
 import { NoteWithUser } from "@/lib/infer-type";
@@ -42,6 +42,7 @@ export default function NotesGrid({
     myNotes: NoteWithUser[]
 }){
     const [deleteOpen, setDeleteOpen] = useState(false)
+    const [removeLabelOpen, setRemoveLabelOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
@@ -55,6 +56,33 @@ export default function NotesGrid({
                 toast.dismiss()
                 setIsLoading(false)
                 toast.success('Note Deleted ❌')
+                router.refresh()
+            }
+        }catch(error: any){
+            toast.dismiss()
+            setIsLoading(false)
+            if(error instanceof AxiosError && error.response){
+                toast.error(`${error.response.data.error} 😔`)
+            }else{
+                toast.error(`Something went wrong. 😔`)
+            }
+        }
+    }
+
+    const RemoveLabel = async (id: number) => {
+        try{
+            setIsLoading(true)
+            toast.loading('Removing Label...⏳')
+            const {data} = await axios.post(`/api/notes/label`, {
+                labelNotes: [id],
+                label: null,
+                labelColor: null 
+            })
+            
+            if(data.success){
+                toast.dismiss()
+                setIsLoading(false)
+                toast.success('Label Removed ❌')
                 router.refresh()
             }
         }catch(error: any){
@@ -144,6 +172,37 @@ export default function NotesGrid({
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
+                                                {myNote.note.labelText ? (
+                                                    <AlertDialog open={removeLabelOpen} onOpenChange={setRemoveLabelOpen}>
+                                                        <AlertDialogTrigger 
+                                                            asChild
+                                                        >
+                                                            <button
+                                                                className="flex items-center gap-2 w-full py-1 px-[10px] rounded-sm hover:bg-destructive hover:text-white"
+                                                            >
+                                                                <BookmarkX className="w-4 h-4" />
+                                                                <span>Remove Label</span>
+                                                            </button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+                                                                This will permanently remove your tag.
+                                                            </AlertDialogDescription>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction 
+                                                                    onClick={() => RemoveLabel(myNote.noteId)}
+                                                                    className="bg-destructive"
+                                                                >
+                                                                    Remove
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                ) : null}
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </div>
