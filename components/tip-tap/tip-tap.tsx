@@ -6,7 +6,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import axios from 'axios'
 import { BadgeCheck, Bold, Heading1, Heading2, Heading3, Italic, List, ListOrdered, Loader, Save } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Chat from './chat-container'
 
 const Tiptap = ({
@@ -15,6 +15,26 @@ const Tiptap = ({
     myNote: NoteWithUser
 }) => {
   const [saving, setSaving] = useState(false)
+  const [assistantOpen, setAssistantOpen] = useState<boolean>(false)
+
+  const handleKeyPress = useCallback((event: any) => {
+    if(event.ctrlKey){
+      if(event.key === 'm' || event.key === 'M'){
+        setAssistantOpen(prev => !prev)
+      }
+    }
+  }, []);
+  
+  useEffect(() => {
+    // attach the event listener
+    document.addEventListener('keydown', handleKeyPress);
+
+    // remove the event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
   const editor = useEditor({
     immediatelyRender: false,
     editorProps: {
@@ -75,7 +95,7 @@ const Tiptap = ({
 
   return (
     <div className="flex">
-      <div className="w-4/6">  
+      <div className={`${assistantOpen ? 'w-4/6' : 'w-full'}`}>  
         <div className="mt-4 relative flex flex-col items-center">
           <header 
             className="z-30 fixed top-14 max-w-2xl lg:max-w-3xl mx-auto rounded-sm w-full border-gray-100 bg-white/80 py-3 px-1  backdrop-blur-lg shadow"
@@ -164,12 +184,18 @@ const Tiptap = ({
               >
                 <ListOrdered className="w-4 h-4" />
               </button>
+              <button
+                onClick={() => setAssistantOpen(prev => !prev)}
+                className={cn('p-1 rounded-sm', assistantOpen ? 'bg-primary text-white' : 'bg-secondary')}
+              >
+                <span className="w-4 h-4">✨</span>
+              </button>
             </div>
           </header>
         </div>
         <EditorContent className="mt-8" editor={editor} />
       </div>
-      <div className="z-50 w-2/6 h-[calc(100vh-6rem)] flex flex-col border rounded-lg shadow-lg">          
+      <div className={`${assistantOpen ? 'w-2/6 block' : 'hidden'} z-50 h-[calc(100vh-6rem)] flex flex-col border rounded-lg shadow-lg`}>          
         <Chat />
       </div>
     </div>

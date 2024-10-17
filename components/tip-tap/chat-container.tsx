@@ -11,13 +11,13 @@ export default function Chat(){
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if(messages.length){
+        if(messages){
             ref.current?.scrollIntoView({
                 behavior: 'smooth',
                 block: 'end'
             })
         }
-    }, [messages.length])
+    }, [messages])
 
     return (
         <>
