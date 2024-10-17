@@ -11,6 +11,8 @@
     "db:push": "drizzle-kit push --config drizzle.config.ts"
   },
   "dependencies": {
+    "@ai-sdk/google": "^0.0.52",
+    "@ai-sdk/openai": "^0.0.67",
     "@auth/drizzle-adapter": "^1.6.0",
     "@auth/prisma-adapter": "^2.6.0",
     "@hookform/resolvers": "^3.9.0",
@@ -38,6 +40,7 @@
     "@tiptap/react": "^2.8.0",
     "@tiptap/starter-kit": "^2.8.0",
     "@types/bcryptjs": "^2.4.6",
+    "ai": "^3.4.12",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",

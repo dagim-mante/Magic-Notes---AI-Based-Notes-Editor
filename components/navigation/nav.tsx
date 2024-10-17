@@ -105,6 +105,7 @@ export default function NavBar({
                                 <Link onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" href="/login">Get Started</Link>
                             ) : (
                                 <div>
+                                    <Link onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" href="/notes">Notes</Link>
                                     <Link 
                                         className="flex items-center w-full p-2 rounded-sm hover:bg-primary hover:text-white" 
                                         href="/profile"
