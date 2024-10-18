@@ -9,11 +9,9 @@ export const revalidate = 0
 
 export default async function NotesPage(){
     const session = await auth()
-    if(!session){
-        return null
-    }
+
     const myNotes = await db.query.usersToNotes.findMany({
-        where: eq(usersToNotes.userId, session.user?.id!),
+        where: eq(usersToNotes.userId, session?.user?.id!),
         with: {
             note: true,
             user: true,

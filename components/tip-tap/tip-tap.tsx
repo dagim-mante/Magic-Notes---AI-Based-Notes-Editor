@@ -19,6 +19,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import ChatMobile from './chat-container-mobile'
+import { notFound } from 'next/navigation'
 
 
 function getWindowDimensions() {
@@ -49,6 +50,9 @@ const Tiptap = ({
 }: {
     myNote: NoteWithUser
 }) => {
+  if(!myNote){
+    return notFound()
+  }
   const [saving, setSaving] = useState(false)
   const [assistantOpen, setAssistantOpen] = useState<boolean>(false)
   const { height, width } = useWindowDimensions();

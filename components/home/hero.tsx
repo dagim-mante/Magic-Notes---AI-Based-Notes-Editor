@@ -10,7 +10,7 @@ export default function Hero(){
                             className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
                             Write Smart,<br /> Edit Smarter with <span className="text-blue-600">AI.</span>
                         </h1>
-                        <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">This
+                        <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
                             Effortlessly Create, Organize, and Enhance Your Notes with a Rich Text Editor, Smart Labels, and AI Assistance.    
                         </p>
                         <div className="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
