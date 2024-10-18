@@ -54,6 +54,7 @@ export default function NavBar({
                                         width={50}
                                         height={50}
                                         className="w-7 h-7 rounded-full"
+                                        referrerPolicy='no-referrer'
                                     />
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
