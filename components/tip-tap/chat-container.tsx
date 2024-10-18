@@ -21,8 +21,6 @@ export default function Chat(){
         }
     }, [messages])
 
-    console.log("messages", messages)
-
     return (
         <>
             <header className="p-4 border-b">
@@ -61,6 +59,7 @@ export default function Chat(){
                         value={input}
                         onChange={handleInputChange} 
                         placeholder="Type your message..."
+                        autoComplete="off"
                     />
                     <Button type="submit">
                         <Send className="w-4 h-4" />

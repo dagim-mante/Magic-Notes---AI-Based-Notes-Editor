@@ -249,7 +249,7 @@ const Tiptap = ({
           <SheetContent>
             <SheetTitle className="hidden" />
             <SheetDescription className="hidden" />
-            <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-3rem)] flex flex-col border rounded-lg shadow-lg`}>          
+            <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-4rem)] flex flex-col border rounded-lg shadow-lg`}>          
               <ChatMobile />
             </div>
           </SheetContent>

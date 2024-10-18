@@ -21,8 +21,6 @@ export default function ChatMobile(){
         }
     }, [messages])
 
-    console.log("messages", messages)
-
     return (
         <>
             <header className="p-4 border-b">
@@ -37,7 +35,7 @@ export default function ChatMobile(){
                             key={message.id}
                         > 
                             <div
-                                className={`max-w-[70%] rounded-lg p-3 ${
+                                className={`max-w-[90%] md:max-w-[70%] rounded-lg p-3 ${
                                 message.role === "user"
                                     ? "bg-primary text-primary-foreground"
                                     : "bg-secondary text-secondary-foreground"
@@ -61,6 +59,7 @@ export default function ChatMobile(){
                         value={input}
                         onChange={handleInputChange} 
                         placeholder="Type your message..."
+                        autoComplete="off"
                     />
                     <Button type="submit">
                         <Send className="w-4 h-4" />
