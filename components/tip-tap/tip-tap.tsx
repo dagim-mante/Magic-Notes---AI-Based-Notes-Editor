@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sheet"
 
 import { Button } from "@/components/ui/button"
+import ChatMobile from './chat-container-mobile'
 
 
 function getWindowDimensions() {
@@ -232,7 +233,7 @@ const Tiptap = ({
       </div>
       <div className="flex-1 lg:block hidden w-2/6 h-full">
         <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-6rem)] flex flex-col border rounded-lg shadow-lg`}>          
-          {/* <Chat /> */}
+          <Chat />
         </div>
       </div>
       <div className="flex-1 lg:hidden block h-full">
@@ -249,7 +250,7 @@ const Tiptap = ({
             <SheetTitle className="hidden" />
             <SheetDescription className="hidden" />
             <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-3rem)] flex flex-col border rounded-lg shadow-lg`}>          
-              <Chat />
+              <ChatMobile />
             </div>
           </SheetContent>
         </Sheet>

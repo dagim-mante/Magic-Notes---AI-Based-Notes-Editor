@@ -6,9 +6,9 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useEffect, useRef } from 'react'
 
-export default function Chat(){
+export default function ChatMobile(){
     const { messages, input, handleInputChange, handleSubmit } = useChat({
-        id: "desktop"
+        id: "mobile"
     });
     const ref = useRef<HTMLDivElement>(null);
 
