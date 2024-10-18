@@ -9,6 +9,40 @@ import { BadgeCheck, Bold, Heading1, Heading2, Heading3, Italic, List, ListOrder
 import { useCallback, useEffect, useState } from 'react'
 import Chat from './chat-container'
 
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
+import { Button } from "@/components/ui/button"
+
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
 const Tiptap = ({
     myNote
 }: {
@@ -16,6 +50,7 @@ const Tiptap = ({
 }) => {
   const [saving, setSaving] = useState(false)
   const [assistantOpen, setAssistantOpen] = useState<boolean>(false)
+  const { height, width } = useWindowDimensions();
 
   const handleKeyPress = useCallback((event: any) => {
     if(event.ctrlKey){
@@ -98,7 +133,7 @@ const Tiptap = ({
       <div className={`${assistantOpen ? 'w-4/6' : 'w-full'}`}>  
         <div className="mt-4 relative flex flex-col items-center">
           <header 
-            className="z-30 fixed top-14 max-w-2xl lg:max-w-3xl mx-auto rounded-sm w-full border-gray-100 bg-white/80 py-3 px-1  backdrop-blur-lg shadow"
+            className="z-30 fixed top-14 max-w-md mx-auto rounded-sm w-full border-gray-100 bg-white/80 py-3 px-1  backdrop-blur-lg shadow"
           >
             <div className="flex flex-wrap gap-[4px]">
               <p className='flex items-center gap-[2px] mr-1'>
@@ -195,8 +230,29 @@ const Tiptap = ({
         </div>
         <EditorContent className="mt-8" editor={editor} />
       </div>
-      <div className={`${assistantOpen ? 'w-2/6 block' : 'hidden'} z-50 h-[calc(100vh-6rem)] flex flex-col border rounded-lg shadow-lg`}>          
-        <Chat />
+      <div className="flex-1 lg:block hidden w-2/6 h-full">
+        <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-6rem)] flex flex-col border rounded-lg shadow-lg`}>          
+          {/* <Chat /> */}
+        </div>
+      </div>
+      <div className="flex-1 lg:hidden block h-full">
+        <Sheet open={assistantOpen && width < 1024} onOpenChange={setAssistantOpen}>
+          <SheetTrigger asChild>
+            <Button 
+                variant="outline"
+                className="hidden"
+              >
+                Open
+              </Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetTitle className="hidden" />
+            <SheetDescription className="hidden" />
+            <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-3rem)] flex flex-col border rounded-lg shadow-lg`}>          
+              <Chat />
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   )

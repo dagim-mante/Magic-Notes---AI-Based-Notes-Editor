@@ -19,6 +19,8 @@ export default function Chat(){
         }
     }, [messages])
 
+    console.log("messages", messages)
+
     return (
         <>
             <header className="p-4 border-b">
