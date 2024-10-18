@@ -37,7 +37,7 @@ export default function ChatMobile(){
                                     key={message.id}
                                 > 
                                     <div
-                                        className={`max-w-[70%] rounded-lg p-3 ${
+                                        className={`max-w-[90%] rounded-lg p-3 ${
                                         message.role === "user"
                                             ? "bg-primary text-primary-foreground"
                                             : "bg-secondary text-secondary-foreground"
