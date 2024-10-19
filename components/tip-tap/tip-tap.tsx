@@ -57,7 +57,7 @@ const Tiptap = ({
   const [saving, setSaving] = useState(false)
   const [assistantOpen, setAssistantOpen] = useState<boolean>(false)
   const { height, width } = useWindowDimensions();
-  const [content, setContent] = useState<string | null>(null) 
+  const [content, setContent] = useState<string | null>(myNote.note.content) 
   
   
   const handleKeyPress = useCallback((event: any) => {
@@ -98,7 +98,7 @@ const Tiptap = ({
         },
       })
     ],
-    content: myNote.note.content ? myNote.note.content : '',
+    content: content ? content : '',
     onUpdate({ editor }){
       console.log("update")
       setContent(editor.getHTML())
@@ -244,7 +244,12 @@ const Tiptap = ({
         </div>
         <div className="fixed right-0 flex-1 lg:block hidden w-2/6 h-full">
           <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-6rem)] flex flex-col border rounded-lg shadow-lg`}>          
-            <Chat content={content} />
+            <Chat 
+              manualSave={manualSave}
+              content={content}
+              setContent={editor.commands.setContent}
+              setContentState={setContent}
+            />
           </div>
         </div>
         <div className="flex-1 lg:hidden block h-full">
@@ -261,7 +266,12 @@ const Tiptap = ({
               <SheetTitle className="hidden" />
               <SheetDescription className="hidden" />
               <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-4rem)] flex flex-col border rounded-lg shadow-lg`}>          
-                <ChatMobile content={content} />
+                  <ChatMobile
+                    manualSave={manualSave}
+                    content={content}
+                    setContent={editor.commands.setContent}
+                    setContentState={setContent}
+                  />
               </div>
             </SheetContent>
           </Sheet>

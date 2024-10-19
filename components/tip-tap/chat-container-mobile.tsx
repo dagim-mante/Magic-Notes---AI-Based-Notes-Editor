@@ -1,17 +1,22 @@
 'use client'
 import { useChat } from 'ai/react';
 import { ScrollArea } from '../ui/scroll-area';
-import { CircleStop, Send } from 'lucide-react';
+import { CircleStop, Pencil, Send } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useEffect, useRef } from 'react'
 
 export default function ChatMobile({
-    content
+    manualSave,
+    content,
+    setContent,
+    setContentState
 } : {
-    content: string | null
+    manualSave: any,
+    content: string | null,
+    setContent: any,
+    setContentState: any
 }){
-    console.log(content)
     const { messages, input, handleInputChange, handleSubmit, isLoading, stop } = useChat({
         id: "mobile",
         experimental_prepareRequestBody: ({messages}) => {
@@ -55,6 +60,28 @@ export default function ChatMobile({
                                         }`}
                                     >
                                         {message.content}
+                                        {message.role !== 'user' ? (
+                                            <button 
+                                                className="text-xs block bg-slate-700 text-white rounded-sm justify-self-start my-1 py-1 px-2"
+                                                onClick={() => {
+                                                    const parse = require('./parse')
+                                                    const render = require('./render')
+
+                                                    const text = message.content
+                                                    const parsed = parse(text)
+                                                    const rendered = render(parsed)
+
+                                                    setContent(`${content}${rendered}`)
+                                                    setContentState(`${content} {rendered}`)
+                                                    manualSave() 
+                                                }}
+                                            >
+                                                <span className="flex">
+                                                    <Pencil className="w-4 h-4 mr-1"/>
+                                                    <span>Edit</span>
+                                                </span>
+                                            </button>
+                                        ) : null}
                                     </div>              
                                 </div>
                             ))}
