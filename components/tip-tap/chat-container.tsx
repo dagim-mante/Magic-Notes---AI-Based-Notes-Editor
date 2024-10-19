@@ -6,9 +6,19 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useEffect, useRef } from 'react'
 
-export default function Chat(){
+export default function Chat({
+    content
+} : {
+    content: string | null
+}){
     const { messages, input, handleInputChange, handleSubmit, isLoading, stop } = useChat({
-        id: "desktop"
+        id: "desktop",
+        experimental_prepareRequestBody: ({messages}) => {
+            return {
+                messages,
+                content
+            }
+        }
     });
     const ref = useRef<HTMLDivElement>(null);
 
