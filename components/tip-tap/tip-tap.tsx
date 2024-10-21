@@ -242,7 +242,7 @@ const Tiptap = ({
           </div>
           <EditorContent className="mt-8" editor={editor} />
         </div>
-        <div className="fixed right-0 flex-1 lg:block hidden w-2/6 h-full">
+        <div className="fixed right-10 flex-1 lg:block hidden w-2/6 h-full">
           <div className={`${assistantOpen ? ' block' : 'hidden'} z-50 h-[calc(100vh-6rem)] flex flex-col border rounded-lg shadow-lg`}>          
             <Chat 
               manualSave={manualSave}
