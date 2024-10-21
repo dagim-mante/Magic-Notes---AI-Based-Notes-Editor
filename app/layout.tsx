@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="container">
+        <div className="flex-grow px-6 md:px-12 mx-auto max-w-7xl">
           <NavBar session={session}/>
           {children}
           <Toaster position="top-right"/>
