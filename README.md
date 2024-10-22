@@ -64,13 +64,13 @@
         <img src="https://utfs.io/f/ez2eGPgh5yPHXD5qqWRZTXbMh0H2vRyxp3OtnBNf7wQGso1A" alt="Screenshot 1" width="100%" height="400">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="/rich-editor.gif" alt="Screenshot 2" width="100%" height="400">
+        <img src="./public/rich-editor.gif" alt="Screenshot 2" width="100%" height="400">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="/ai-assistant.gif" alt="Screenshot 3" width="100%" height="400">
+        <img src="./public/ai-assistant.gif" alt="Screenshot 3" width="100%" height="400">
       </div>
       <div style="flex: 1 1 300px; margin: 10px;">
-        <img src="/labels.gif" alt="Screenshot 4" width="100%" height="400">
+        <img src="./public/labels.gif" alt="Screenshot 4" width="100%" height="400">
       </div>
     </div>
 </div>
