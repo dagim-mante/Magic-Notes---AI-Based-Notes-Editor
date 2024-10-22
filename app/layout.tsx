@@ -27,6 +27,10 @@ export default async function RootLayout({
         <meta property="og:image:type" content="<generated>" />
         <meta property="og:image:width" content="<generated>" />
         <meta property="og:image:height" content="<generated>" />
+<meta name="twitter:image" content="<generated>" />
+<meta name="twitter:image:type" content="<generated>" />
+<meta name="twitter:image:width" content="<generated>" />
+<meta name="twitter:image:height" content="<generated>" />
         </head>
       <body className={inter.className}>
         <div className="flex-grow px-6 md:px-12 mx-auto max-w-7xl">
