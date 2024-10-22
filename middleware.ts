@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest){
             return NextResponse.redirect(loginPage)
         }
     }else{
-        if(pathname === '/' || pathname === '/login'){
+        if(pathname === '/login'){
             const notesPage = new NextURL("/notes", origin);
             return NextResponse.redirect(notesPage)
         }else{  
