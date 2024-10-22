@@ -24,7 +24,7 @@ export default function Hero(){
                 </div>
                 <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
                     <Image 
-                        src="/image.png"
+                        src="/hero.svg"
                         alt="hero image"
                         width={80}
                         height={80}
