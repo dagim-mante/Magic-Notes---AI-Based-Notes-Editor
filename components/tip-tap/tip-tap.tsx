@@ -22,6 +22,8 @@ import ChatMobile from './chat-container-mobile'
 import { notFound } from 'next/navigation'
 import ContentUpdater from './content-editor'
 
+import { Placeholder } from "@tiptap/extension-placeholder"
+
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -87,6 +89,11 @@ const Tiptap = ({
       }
     },
     extensions: [
+      Placeholder.configure({
+        placeholder: "// Start writing your note here. You can access Magic AI using ✨ button.",
+        emptyNodeClass:
+          "first:before:text-gray-600 first:before:float-left first:before:content-[attr(data-placeholder)] first:before:pointer-events-none",
+      }),
       StarterKit.configure({
         bulletList: {
           keepMarks: true,
