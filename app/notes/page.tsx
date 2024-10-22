@@ -2,7 +2,7 @@ import Notes from "@/components/notes/notes";
 import { NoteWithUser } from "@/lib/infer-type";
 import { db } from "@/server";
 import { auth } from "@/server/auth";
-import { usersToNotes } from "@/server/schema";
+import { usersToNotes, notes } from "@/server/schema";
 import { eq } from "drizzle-orm";
 
 export const revalidate = 0

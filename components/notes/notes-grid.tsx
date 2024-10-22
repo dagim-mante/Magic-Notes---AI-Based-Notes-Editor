@@ -97,10 +97,12 @@ export default function NotesGrid({
             }
         }
     }
+
+    const sortedNotes = myNotes.sort((a, b) => new Date(b?.note?.updated!) - new Date(a?.note?.updated!))
     
     return (
         <div className="mt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {myNotes.map(myNote => (
+            {sortedNotes.map(myNote => (
                 <div key={myNote.noteId}>
                     <Card>
                         <Link
