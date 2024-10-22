@@ -208,7 +208,7 @@ Start the server
 ## :wave: Contributing
 
 <a href="https://github.com/dagim-mante/Magic-Notes---AI-Based-Notes-Editor/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=dagim-mante/Magic-Notes---AI-Based-Notes-Editor />
+  <img src="https://contrib.rocks/image?repo=dagim-mante/Magic-Notes---AI-Based-Notes-Editor" />
 </a>
 
 
